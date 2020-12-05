@@ -4,6 +4,7 @@ include_once ('../../../tribe.init.php');
 $ignored_files=array();
 $ignored_files[]='node_modules/*';
 $ignored_files[]='vendor/*';
+$ignored_files[]='.git/*';
 
 if (isset($_ENV['S3_BKUP_ACCESS_KEY']) && isset($_ENV['WEB_URL']) && isset($_ENV['S3_BKUP_HOST_BUCKET']) && isset($_ENV['S3_BKUP_SECRET_KEY']) && isset($_ENV['S3_BKUP_HOST_BASE'])) {
 
