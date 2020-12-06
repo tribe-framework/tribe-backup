@@ -6,7 +6,7 @@ $ignored_files[]='node_modules/*';
 $ignored_files[]='vendor/*';
 $ignored_files[]='.git/*';
 
-if (($_ENV['S3_BKUP_ACCESS_KEY']??false) && ($_ENV['S3_BKUP_BUCKET_NAME']??false) && ($_ENV['S3_BKUP_HOST_BUCKET']??false) && ($_ENV['S3_BKUP_SECRET_KEY']??false) && ($_ENV['S3_BKUP_HOST_BASE']??false) && define('ABSOLUTE_PATH')) {
+if (($_ENV['S3_BKUP_ACCESS_KEY']??false) && ($_ENV['S3_BKUP_BUCKET_NAME']??false) && ($_ENV['S3_BKUP_HOST_BUCKET']??false) && ($_ENV['S3_BKUP_SECRET_KEY']??false) && ($_ENV['S3_BKUP_HOST_BASE']??false) && defined('ABSOLUTE_PATH')) {
 
 	linux_command('s3cmd sync -r --delete-removed --exclude "'.implode('" --exclude "', $ignored_files).'" --host="'.$_ENV['S3_BKUP_HOST_BASE'].'" --access_key="'.$_ENV['S3_BKUP_ACCESS_KEY'].'" --secret_key="'.$_ENV['S3_BKUP_SECRET_KEY'].'" --host-bucket="'.$_ENV['S3_BKUP_HOST_BUCKET'].'" '.ABSOLUTE_PATH.'/ s3://'.$_ENV['S3_BKUP_BUCKET_NAME']);
 
