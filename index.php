@@ -6,14 +6,14 @@ $ignored_files[]='node_modules/*';
 $ignored_files[]='vendor/*';
 $ignored_files[]='.git/*';
 
-if (isset($_ENV['S3_BKUP_ACCESS_KEY']) && isset($_ENV['WEB_URL']) && isset($_ENV['S3_BKUP_HOST_BUCKET']) && isset($_ENV['S3_BKUP_SECRET_KEY']) && isset($_ENV['S3_BKUP_HOST_BASE'])) {
+if (($_ENV['S3_BKUP_ACCESS_KEY']??false) && ($_ENV['S3_BKUP_BUCKET_NAME']??false) && ($_ENV['S3_BKUP_HOST_BUCKET']??false) && ($_ENV['S3_BKUP_SECRET_KEY']??false) && ($_ENV['S3_BKUP_HOST_BASE']??false)) {
 
-	linux_command('s3cmd sync -r --delete-removed --exclude "'.implode('" --exclude "', $ignored_files).'" --host="'.$_ENV['S3_BKUP_HOST_BASE'].'" --access_key="'.$_ENV['S3_BKUP_ACCESS_KEY'].'" --secret_key="'.$_ENV['S3_BKUP_SECRET_KEY'].'" --host-bucket="'.$_ENV['S3_BKUP_HOST_BUCKET'].'" '.$_ENV['ABSOLUTE_PATH'].'/ s3://'.$_ENV['WEB_URL']);
+	linux_command('s3cmd sync -r --delete-removed --exclude "'.implode('" --exclude "', $ignored_files).'" --host="'.$_ENV['S3_BKUP_HOST_BASE'].'" --access_key="'.$_ENV['S3_BKUP_ACCESS_KEY'].'" --secret_key="'.$_ENV['S3_BKUP_SECRET_KEY'].'" --host-bucket="'.$_ENV['S3_BKUP_HOST_BUCKET'].'" '.$_ENV['ABSOLUTE_PATH'].'/ s3://'.$_ENV['S3_BKUP_BUCKET_NAME']);
 
-	if (isset($_ENV['DB_NAME']) && isset($_ENV['DB_USER']) && isset($_ENV['DB_PASS'])) {
+	if (($_ENV['DB_NAME']??false) && ($_ENV['DB_USER']??false) && ($_ENV['DB_PASS']??false)) {
 		$backupfile='/tmp/backup-'.$_ENV['DB_NAME'].'.sql.gz';
 		linux_command('mysqldump --no-tablespaces -u'.$_ENV['DB_USER'].' -p'.$_ENV['DB_PASS'].' '.$_ENV['DB_NAME'].' | gzip > '.$backupfile);
-		linux_command('s3cmd --host="'.$_ENV['S3_BKUP_HOST_BASE'].'" --access_key="'.$_ENV['S3_BKUP_ACCESS_KEY'].'" --secret_key="'.$_ENV['S3_BKUP_SECRET_KEY'].'" --host-bucket="'.$_ENV['S3_BKUP_HOST_BUCKET'].'" put '.$backupfile.' s3://'.$_ENV['WEB_URL'].'/');
+		linux_command('s3cmd --host="'.$_ENV['S3_BKUP_HOST_BASE'].'" --access_key="'.$_ENV['S3_BKUP_ACCESS_KEY'].'" --secret_key="'.$_ENV['S3_BKUP_SECRET_KEY'].'" --host-bucket="'.$_ENV['S3_BKUP_HOST_BUCKET'].'" put '.$backupfile.' s3://'.$_ENV['S3_BKUP_BUCKET_NAME'].'/');
 		linux_command('rm '.$backupfile);
 	}
 
