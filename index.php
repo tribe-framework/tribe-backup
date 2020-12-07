@@ -18,6 +18,11 @@ if (($_ENV['S3_BKUP_ACCESS_KEY']??false) && ($_ENV['S3_BKUP_BUCKET_NAME']??false
 	}
 
 	$dash->push_content(array('type'=>'syslog_backup', 'ignored_files'=>json_encode($ignored_files)));
+
+	echo '<h3>Backup successfully initiated. You can close this window.</h3>';
+}
+else {
+	echo '<h3>S3 credentials have not been added to the dot-env file. Contact your development team.</h3>';
 }
 
 function linux_command ($cmd) {
