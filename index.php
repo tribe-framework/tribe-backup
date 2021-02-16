@@ -10,7 +10,7 @@ $ignored_files[] = '.git/*';
 if (($_ENV['S3_BKUP_ACCESS_KEY'] ?? false) && ($_ENV['S3_BKUP_BUCKET_NAME'] ?? false) && ($_ENV['S3_BKUP_HOST_BUCKET'] ?? false) && ($_ENV['S3_BKUP_SECRET_KEY'] ?? false) && ($_ENV['S3_BKUP_HOST_BASE'] ?? false) && defined('ABSOLUTE_PATH') && ($_ENV['DB_NAME'] ?? false) && ($_ENV['DB_USER'] ?? false) && ($_ENV['DB_PASS'] ?? false)) {
 
 	$upload_paths = $dash->get_uploader_path();
-	$backupfile = $upload_paths['upload_dir'] . '/backup-' . time() . '-' . $_ENV['DB_NAME'] . '.sql';
+	$backupfile = $upload_paths['upload_dir'] . '/backup-' . uniqid() . '-' . time() . '-' . $_ENV['DB_NAME'] . '.sql';
 
 	try {
 		$dump = new IMysqldump\Mysqldump('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], $_ENV['DB_USER'], $_ENV['DB_PASS']);
