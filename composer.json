@@ -1,3 +1,6 @@
 {
-    "name": "wildfire/backup"
+    "name": "wildfire/backup",
+    "require": {
+    	"ifsnop/mysqldump-php": "^2.9"
+    }
 }
