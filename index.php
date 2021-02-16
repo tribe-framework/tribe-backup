@@ -20,7 +20,7 @@ if (($_ENV['S3_BKUP_ACCESS_KEY'] ?? false) && ($_ENV['S3_BKUP_BUCKET_NAME'] ?? f
 	} finally {
 		linux_command('7z a ' . $backupfile . '.7z ' . $backupfile . ' -p' . $_ENV['DB_PASS'] . '; rm ' . $backupfile . ' ; s3cmd sync -r --delete-removed --exclude "' . implode('" --exclude "', $ignored_files) . '" --host="' . $_ENV['S3_BKUP_HOST_BASE'] . '" --access_key="' . $_ENV['S3_BKUP_ACCESS_KEY'] . '" --secret_key="' . $_ENV['S3_BKUP_SECRET_KEY'] . '" --host-bucket="' . $_ENV['S3_BKUP_HOST_BUCKET'] . '" ' . ABSOLUTE_PATH . '/ s3://' . $_ENV['S3_BKUP_BUCKET_NAME'] . ' ;');
 
-		$dash->push_content(array('type' => $type, 'ignored_files' => json_encode($ignored_files)));
+		$dash->push_content(array('type' => $type, 'mysql_backup_url' => $_ENV['S3_BKUP_HOST_BASE'] . '/' . $_ENV['S3_BKUP_BUCKET_NAME'] . '/' . $backupfile . '.7z ', 'ignored_files' => json_encode($ignored_files)));
 
 		echo '<h3>Backup successfully initiated. You can close this window.</h3>';
 	}

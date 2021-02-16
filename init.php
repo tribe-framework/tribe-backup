@@ -6,7 +6,7 @@ $dash = new Dash();
 $admin = new Admin();
 $theme = new Theme();
 
-$type = 'syslog_backup';
+$type = 'mysql_backup';
 $types = $dash->getTypes();
 $menus = $dash->getMenus();
 $session_user = $dash->getSessionUser();
