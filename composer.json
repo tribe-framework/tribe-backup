@@ -1,6 +1,18 @@
 {
     "name": "wildfire/backup",
+    "repositories": {
+        "wildfire/auth": {
+            "type": "git",
+            "url": "https://github.com/wil-ldf-ire/auth.git"
+        },
+        "wildfire/core": {
+            "type": "git",
+            "url": "https://github.com/wil-ldf-ire/core.git"
+        }
+    },
     "require": {
-    	"ifsnop/mysqldump-php": "^2.9"
+    	"ifsnop/mysqldump-php": "^2.9",
+    	"wildfire/core": "^1.1",
+    	"wildfire/auth": "^1.1"
     }
 }
