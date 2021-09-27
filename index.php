@@ -7,6 +7,9 @@ $ignored_files[] = 'node_modules/*';
 $ignored_files[] = 'vendor/*';
 $ignored_files[] = '.git/*';
 
+if (($_ENV['S3_UPLOADS_ACCESS_KEY'] ?? false)) {
+	$ignored_files[] = 'uploads/*';
+}
 if (($_ENV['S3_BKUP_ACCESS_KEY'] ?? false) && ($_ENV['S3_BKUP_BUCKET_NAME'] ?? false) && ($_ENV['S3_BKUP_HOST_BUCKET'] ?? false) && ($_ENV['S3_BKUP_SECRET_KEY'] ?? false) && ($_ENV['S3_BKUP_HOST_BASE'] ?? false) && defined('ABSOLUTE_PATH') && ($_ENV['DB_NAME'] ?? false) && ($_ENV['DB_USER'] ?? false) && ($_ENV['DB_PASS'] ?? false)) {
 
 	$upload_paths = $dash->get_uploader_path();
