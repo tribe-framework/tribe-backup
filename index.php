@@ -10,9 +10,10 @@ $ignored_files[] = '.git/*';
 if (($_ENV['S3_UPLOADS_ACCESS_KEY'] ?? false)) {
 	$ignored_files[] = 'uploads/*';
 }
+
 if (($_ENV['S3_BKUP_ACCESS_KEY'] ?? false) && ($_ENV['S3_BKUP_BUCKET_NAME'] ?? false) && ($_ENV['S3_BKUP_HOST_BUCKET'] ?? false) && ($_ENV['S3_BKUP_SECRET_KEY'] ?? false) && ($_ENV['S3_BKUP_HOST_BASE'] ?? false) && defined('ABSOLUTE_PATH') && ($_ENV['DB_NAME'] ?? false) && ($_ENV['DB_USER'] ?? false) && ($_ENV['DB_PASS'] ?? false)) {
 
-	$upload_paths = $dash->get_uploader_path();
+	$upload_paths = get_backup_path();
 	$backupfile = $upload_paths['upload_dir'] . '/backup-' . uniqid() . '-' . time() . '-' . $_ENV['DB_NAME'] . '.sql';
 
 	try {
@@ -38,5 +39,14 @@ function linux_command($cmd) {
 	$tml = ob_get_contents();
 	ob_end_clean();
 	return $tml;
+}
+
+function get_backup_path() {
+	$folder_path = 'backups/' . date('Y') . '/' . date('m-F') . '/' . date('d-D');
+	if (!is_dir(TRIBE_ROOT . '/' . $folder_path)) {
+		mkdir(TRIBE_ROOT . '/' . $folder_path, 0755, true);
+	}
+
+	return array('upload_dir' => TRIBE_ROOT . '/' . $folder_path, 'upload_url' => BASE_URL . '/' . $folder_path);
 }
 ?>
