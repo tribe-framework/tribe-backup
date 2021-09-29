@@ -22,7 +22,7 @@ if (($_ENV['S3_BKUP_ACCESS_KEY'] ?? false) && ($_ENV['S3_BKUP_BUCKET_NAME'] ?? f
 		if (($_ENV['S3_UPLOADS_ACCESS_KEY'] ?? false) && ($_ENV['S3_UPLOADS_BUCKET_NAME'] ?? false) && ($_ENV['S3_UPLOADS_HOST_BUCKET'] ?? false) && ($_ENV['S3_UPLOADS_SECRET_KEY'] ?? false) && ($_ENV['S3_UPLOADS_HOST_BASE'] ?? false)) {
 			$ignored_files[] = 'uploads/*';
 
-			linux_command('s3cmd sync -r --skip-existing --host="' . $_ENV['S3_UPLOADS_HOST_BASE'] . '" --access_key="' . $_ENV['S3_UPLOADS_ACCESS_KEY'] . '" --secret_key="' . $_ENV['S3_UPLOADS_SECRET_KEY'] . '" --host-bucket="' . $_ENV['S3_UPLOADS_HOST_BUCKET'] . '" ' . ABSOLUTE_PATH . '/uploads/ s3://' . $_ENV['S3_UPLOADS_BUCKET_NAME'] . ' ;');
+			linux_command('s3cmd sync -r --acl-public --skip-existing --host="' . $_ENV['S3_UPLOADS_HOST_BASE'] . '" --access_key="' . $_ENV['S3_UPLOADS_ACCESS_KEY'] . '" --secret_key="' . $_ENV['S3_UPLOADS_SECRET_KEY'] . '" --host-bucket="' . $_ENV['S3_UPLOADS_HOST_BUCKET'] . '" ' . ABSOLUTE_PATH . '/uploads/ s3://' . $_ENV['S3_UPLOADS_BUCKET_NAME'] . ' ;');
 		}
 
 		linux_command('7z a ' . $backupfile . '.7z ' . $backupfile . ' -p' . $_ENV['DB_PASS'] . '; rm ' . $backupfile . ' ; s3cmd sync -r --delete-removed --exclude "' . implode('" --exclude "', $ignored_files) . '" --host="' . $_ENV['S3_BKUP_HOST_BASE'] . '" --access_key="' . $_ENV['S3_BKUP_ACCESS_KEY'] . '" --secret_key="' . $_ENV['S3_BKUP_SECRET_KEY'] . '" --host-bucket="' . $_ENV['S3_BKUP_HOST_BUCKET'] . '" ' . ABSOLUTE_PATH . '/ s3://' . $_ENV['S3_BKUP_BUCKET_NAME'] . ' ;');
