@@ -47,7 +47,7 @@ function linux_command($cmd) {
 }
 
 function get_backup_path() {
-	$folder_path = 'backups/' . date('Y') . '/' . date('m-F') . '/' . date('d-D');
+	$folder_path = 'uploads/mysql-backups/' . date('Y') . '/' . date('m-F') . '/' . date('d-D');
 	if (!is_dir(TRIBE_ROOT . '/' . $folder_path)) {
 		mkdir(TRIBE_ROOT . '/' . $folder_path, 0755, true);
 	}
