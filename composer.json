@@ -15,5 +15,10 @@
     	"ifsnop/mysqldump-php": "^2.9",
     	"tribe/core": "^4.0",
     	"tribe/auth": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tribe\\": "src/"
+        }
     }
 }
