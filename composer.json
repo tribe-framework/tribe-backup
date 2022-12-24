@@ -1,18 +1,19 @@
 {
-    "name": "wildfire/backup",
+    "name": "tribe/backup",
+    "description": "Backup package for Tribe (v3)",
     "repositories": {
-        "wildfire/auth": {
+        "tribe/auth": {
             "type": "git",
-            "url": "https://github.com/wil-ldf-ire/auth.git"
+            "url": "https://github.com/wil-ldf-ire/tribe-auth.git"
         },
-        "wildfire/core": {
+        "tribe/core": {
             "type": "git",
-            "url": "https://github.com/wil-ldf-ire/core.git"
+            "url": "https://github.com/wil-ldf-ire/tribe-core.git"
         }
     },
     "require": {
     	"ifsnop/mysqldump-php": "^2.9",
-    	"wildfire/core": "^3.0",
-    	"wildfire/auth": "^2.0"
+    	"tribe/core": "^4.0",
+    	"tribe/auth": "^3.0"
     }
 }
