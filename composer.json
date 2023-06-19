@@ -1,16 +1,7 @@
 {
     "name": "tribe/backup",
     "description": "Backup package for Tribe (v3)",
-    "repositories": {
-        "tribe/auth": {
-            "type": "git",
-            "url": "https://github.com/wil-ldf-ire/tribe-auth.git"
-        },
-        "tribe/core": {
-            "type": "git",
-            "url": "https://github.com/wil-ldf-ire/tribe-core.git"
-        }
-    },
+    "license": "GPL-3.0-or-later",
     "require": {
     	"ifsnop/mysqldump-php": "^2.9",
     	"tribe/core": "^4.0",
