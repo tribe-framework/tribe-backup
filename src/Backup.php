@@ -52,6 +52,10 @@ class Backup {
 
 	}
 
+	//retains those mysql 7z backups which are of current date, -1 day, of every monday in the current month and -1 months, or those of 01 date of every month in every year in current year and -1 year, and of 01-01 day-month in every year before that
+	public function deleteOldMySQLBackups() {
+	}
+
 	function linux_command($cmd) {
 		ob_start();
 		passthru($cmd . ' > /dev/null 2>&1 &');
