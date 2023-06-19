@@ -1,4 +1,5 @@
 <?php
+namespace Tribe;
 set_time_limit(600);
 
 use \Tribe\Core as Core;
@@ -21,9 +22,9 @@ class Backup {
 
 			} finally {
 
-				//$this->linux_command('7z a ' . $backupfile . '.7z ' . $backupfile . ' -p' . $_ENV['DB_PASS'] . '; rm ' . $backupfile . ' > /dev/null 2>&1 &');
+				$this->linux_command('7z a ' . $backupfile . '.7z ' . $backupfile . ' -p' . $_ENV['DB_PASS'] . '; rm ' . $backupfile . ' > /dev/null 2>&1 &');
 
-				$core->pushObject(array('type' => 'tribe_backup', 'title'=>'MySQL backed up on '.date('Ymd_his'), 'mysql_backup_url' => $_ENV['S3_BKUP_HOST_BASE'] . '/' . $_ENV['S3_BKUP_BUCKET_NAME'] . '/' . $backupfile . '.7z '));
+				$core->pushObject(array('type' => 'tribe_backup', 'title'=>'MySQL backed up on '.date('Ymd_his'), 'mysql_backup_path' => $backupfile . '.7z '));
 
 			}
 	}
